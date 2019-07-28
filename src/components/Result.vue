@@ -21,33 +21,45 @@
 
 <script>
 import Card from "./Card";
+import { computed, onMounted } from "vue-function-api";
 
 export default {
   name: "result",
   components: {
     Card
   },
-  props: ["criteria"],
-  computed: {
-    pokemons() {
-      return this.$store.getters.pokemons;
-    },
-    filteredPokemons() {
-      return this.pokemons.filter(pokemon => this.filterOnPokemon(pokemon));
-    },
-    loading() {
-      return this.$store.getters.loading;
-    }
+  props: {
+    criteria: String
   },
-  methods: {
-    filterOnPokemon: function(pokemon) {
-      const lowerSearch = this.criteria.toLowerCase();
+  setup(props, context) {
+    const pokemons = computed(() => {
+      return context.root.$store.getters.pokemons;
+    });
+
+    const filterOnPokemon = pokemon => {
+      const lowerSearch = props.criteria.toLowerCase();
       const lowerPokemon = pokemon.name.toLowerCase();
       return lowerPokemon.includes(lowerSearch);
-    }
-  },
-  mounted() {
-    this.$store.dispatch("LOAD_POKEMONS");
+    };
+
+    const filteredPokemons = computed(() => {
+      return pokemons.value.filter(pokemon => filterOnPokemon(pokemon));
+    });
+
+    const loading = computed(() => {
+      return context.root.$store.getters.loading;
+    });
+
+    onMounted(() => {
+      context.root.$store.dispatch("LOAD_POKEMONS");
+    });
+
+    return {
+      pokemons,
+      filteredPokemons,
+      loading,
+      filterOnPokemon
+    };
   }
 };
 </script>

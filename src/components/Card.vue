@@ -9,7 +9,7 @@
       <p v-if="pokemon.weight">Weight: {{ pokemon.weight }}</p>
       <p v-if="pokemon.types">
         Type:
-        <span v-for="type of pokemon.types" :key="type"
+        <span v-for="(type, index) in pokemon.types" :key="index"
           >{{ type.type.name }}&nbsp;</span
         >
       </p>

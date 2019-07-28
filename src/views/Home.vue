@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Cover -->
     <div class="cover">
-      <img src="/public/images/zenidex.png" />
+      <img src="/images/zenidex.png" />
     </div>
 
     <!-- Searchbar -->
@@ -16,6 +16,7 @@
 <script>
 import Search from "../components/Search";
 import Result from "../components/Result";
+import { value } from "vue-function-api";
 
 export default {
   name: "home",
@@ -23,16 +24,17 @@ export default {
     Search,
     Result
   },
+  setup() {
+    let searchCriteria = new value("");
 
-  data() {
-    return {
-      searchCriteria: ""
+    const onSearchChange = newValue => {
+      searchCriteria.value = newValue;
     };
-  },
-  methods: {
-    onSearchChange(newValue) {
-      this.searchCriteria = newValue;
-    }
+
+    return {
+      searchCriteria,
+      onSearchChange
+    };
   }
 };
 </script>
