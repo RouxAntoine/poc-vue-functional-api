@@ -4,6 +4,6 @@
 this poc is about new vuejs RFC proposal. For more detail see this official repository [https://github.com/vuejs/vue-function-api](https://github.com/vuejs/vue-function-api)
 
 
-credits : https://github.com/mathieumure for this repository and the according presentation 
+credits : https://github.com/mathieumure for [this repository](https://github.com/mathieumure/poc-vue-functional-api) and the according presentation 
 
 
